@@ -18,13 +18,17 @@ window.addEventListener('resize', actualizarDimensiones);
 
 actualizarDimensiones();
 
+
+// Función para cambiar el tamaño de la ventana
 function cambiarTamaño() {
     const nuevoAncho = document.getElementById('Ancho').value;
     const nuevoAlto = document.getElementById('Alto').value;
-    if (nuevoAncho && nuevoAlto) {
-        window.resizeTo(parseInt(nuevoAncho), parseInt(nuevoAlto));
-        actualizarDimensiones();
+    if (isNaN(nuevoAncho) || isNaN(nuevoAlto) || nuevoAncho === '' || nuevoAlto === '') {
+        alert("Por favor, introduzca un número válido para el ancho y el alto.");
+        return;
     }
+    window.resizeTo(parseInt(nuevoAncho), parseInt(nuevoAlto));
+    actualizarDimensiones();
 }
 
 document.getElementById("cambiarParametros").addEventListener("click", cambiarTamaño);
@@ -32,8 +36,8 @@ document.getElementById("cambiarParametros").addEventListener("click", cambiarTa
 function cambiarColorHexadecimal() {
     const input = document.getElementById('color');
     const color = input.value;
-    const regex = /^#([0-9A-Fa-f]{3}){1,2}$/;
-    if (regex.test(color)) {
+    const validacion = /^#([0-9A-Fa-f]{3}){1,2}$/;
+    if (validacion.test(color)) {
         document.getElementById('pagina').style.backgroundColor = color;
         input.classList.remove('error');
     } else {
